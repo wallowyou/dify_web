@@ -23,7 +23,7 @@ export default antfu(
       },
     },
     nextjs: true,
-    ignores: ['public'],
+    ignores: ['public', 'docs'],
     typescript: {
       overrides: {
         'ts/consistent-type-definitions': ['error', 'type'],
@@ -44,6 +44,7 @@ export default antfu(
   {
     rules: {
       'node/prefer-global/process': 'off',
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   {
