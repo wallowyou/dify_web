@@ -1,0 +1,45 @@
+
+
+.tabButton {
+  animation-duration: .3s;
+  cursor: pointer;
+  font-size: 20px;
+  line-height: 1.5rem;
+  padding-bottom: .5rem;
+  padding-top: .5rem;
+  position: relative;
+  transition-duration: .3s;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+}
+
+
+.tabButtonActive {
+  color: #2563eb;
+}
+.tabButtonActive .tabUnderline {
+  transform: translate(-50%) scaleX(1);
+  background-color: #2563eb;
+}
+
+.tabUnderline {
+  background-color: #2563eb;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%) scaleX(0);
+  transition: all .3s ease;
+}
+
+.formPanel {
+  animation: formFadeIn 0.3s ease;
+}
+
+@keyframes formFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
