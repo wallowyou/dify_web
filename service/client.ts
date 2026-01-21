@@ -39,7 +39,7 @@ export const marketplaceClient: JsonifiedClient<ContractRouterClient<typeof mark
 export const marketplaceQuery = createTanstackQueryUtils(marketplaceClient, { path: ['marketplace'] })
 
 const consoleLink = new OpenAPILink(consoleRouterContract, {
-  url: API_PREFIX,
+  url: API_PREFIX.startsWith('/') ? `${globalThis.location?.origin || ''}${API_PREFIX}` : API_PREFIX,
   fetch: (input, init) => {
     return request(
       input.url,

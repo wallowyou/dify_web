@@ -75,22 +75,27 @@ const nextConfig = {
     ]
   },
   // 本地开发环境下的代理配置，类似于vite的proxy配置
-  // async rewrites() {
-  //   const remoteApiUrl = 'http://120.46.91.147:5001'
-  //   if (isDev && remoteApiUrl) {
-  //     return [
-  //       {
-  //         source: '/console/api/:path*',
-  //         destination: `${remoteApiUrl}/console/api/:path*`,
-  //       },
-  //       {
-  //         source: '/api/:path*',
-  //         destination: `${remoteApiUrl}/api/:path*`,
-  //       },
-  //     ]
-  //   }
-  //   return []
-  // },
+  async rewrites() {
+    const remoteApiUrl = 'http://120.46.91.147:5001'
+    const thirdPartyApiUrl = 'https://devadmin.shensizaowu.com'
+    if (isDev) {
+      return [
+        {
+          source: '/console/api/:path*',
+          destination: `${remoteApiUrl}/console/api/:path*`,
+        },
+        {
+          source: '/api/:path*',
+          destination: `${remoteApiUrl}/api/:path*`,
+        },
+        {
+          source: '/third-party-api/:path*',
+          destination: `${thirdPartyApiUrl}/api/:path*`,
+        },
+      ]
+    }
+    return []
+  },
   output: 'standalone',
   compiler: {
     removeConsole: isDev ? false : { exclude: ['warn', 'error'] },

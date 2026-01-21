@@ -68,6 +68,11 @@ export const MARKETPLACE_API_PREFIX = getStringConfig(
   DatasetAttr.DATA_MARKETPLACE_API_PREFIX,
   'http://localhost:5002/api',
 )
+export const THIRD_PARTY_API_PREFIX = getStringConfig(
+  process.env.NEXT_PUBLIC_THIRD_PARTY_API_PREFIX,
+  DatasetAttr.DATA_THIRD_PARTY_API_PREFIX,
+  'https://devadmin.shensizaowu.com/api',
+)
 export const MARKETPLACE_URL_PREFIX = getStringConfig(
   process.env.NEXT_PUBLIC_MARKETPLACE_URL_PREFIX,
   DatasetAttr.DATA_MARKETPLACE_URL_PREFIX,

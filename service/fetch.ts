@@ -3,7 +3,7 @@ import type { IOtherOptions } from './base'
 import Cookies from 'js-cookie'
 import ky from 'ky'
 import Toast from '@/app/components/base/toast'
-import { API_PREFIX, APP_VERSION, CSRF_COOKIE_NAME, CSRF_HEADER_NAME, IS_MARKETPLACE, MARKETPLACE_API_PREFIX, PASSPORT_HEADER_NAME, PUBLIC_API_PREFIX, WEB_APP_SHARE_CODE_HEADER_NAME } from '@/config'
+import { API_PREFIX, APP_VERSION, CSRF_COOKIE_NAME, CSRF_HEADER_NAME, IS_MARKETPLACE, MARKETPLACE_API_PREFIX, PASSPORT_HEADER_NAME, PUBLIC_API_PREFIX, THIRD_PARTY_API_PREFIX, WEB_APP_SHARE_CODE_HEADER_NAME } from '@/config'
 import { getWebAppAccessToken, getWebAppPassport } from './webapp-auth'
 
 const TIME_OUT = 100000
@@ -153,6 +153,7 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
   const {
     isPublicAPI = false,
     isMarketplaceAPI = false,
+    isThirdPartyAPI = false,
     bodyStringify = true,
     needAllResponseContent,
     deleteContentType,
@@ -162,7 +163,9 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
   } = otherOptions
 
   let base: string
-  if (isMarketplaceAPI)
+  if (isThirdPartyAPI)
+    base = THIRD_PARTY_API_PREFIX
+  else if (isMarketplaceAPI)
     base = MARKETPLACE_API_PREFIX
   else if (isPublicAPI)
     base = PUBLIC_API_PREFIX
@@ -176,7 +179,7 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
   }
 
   const fetchPathname = base + (url.startsWith('/') ? url : `/${url}`)
-  if (!isMarketplaceAPI)
+  if (!isMarketplaceAPI && !isThirdPartyAPI)
     headers.set(CSRF_HEADER_NAME, Cookies.get(CSRF_COOKIE_NAME()) || '')
 
   if (deleteContentType)
@@ -207,7 +210,7 @@ async function base<T>(url: string, options: FetchOptionType = {}, otherOptions:
   const res = await client(request || fetchPathname, {
     ...init,
     headers,
-    credentials: isMarketplaceAPI
+    credentials: isMarketplaceAPI || isThirdPartyAPI
       ? 'omit'
       : (options.credentials || 'include'),
     retry: {

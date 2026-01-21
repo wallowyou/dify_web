@@ -77,6 +77,7 @@ export type IOnDataSourceNodeError = (dataSourceNodeError: DataSourceNodeErrorRe
 export type IOtherOptions = {
   isPublicAPI?: boolean
   isMarketplaceAPI?: boolean
+  isThirdPartyAPI?: boolean
   bodyStringify?: boolean
   needAllResponseContent?: boolean
   deleteContentType?: boolean
@@ -686,4 +687,25 @@ export const patch = <T>(url: string, options = {}, otherOptions?: IOtherOptions
 
 export const patchPublic = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
   return patch<T>(url, options, { ...otherOptions, isPublicAPI: true })
+}
+
+// For Third Party API
+export const getThirdParty = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+  return get<T>(url, options, { ...otherOptions, isThirdPartyAPI: true })
+}
+
+export const postThirdParty = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+  return post<T>(url, options, { ...otherOptions, isThirdPartyAPI: true })
+}
+
+export const putThirdParty = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+  return put<T>(url, options, { ...otherOptions, isThirdPartyAPI: true })
+}
+
+export const delThirdParty = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+  return del<T>(url, options, { ...otherOptions, isThirdPartyAPI: true })
+}
+
+export const patchThirdParty = <T>(url: string, options = {}, otherOptions?: IOtherOptions) => {
+  return patch<T>(url, options, { ...otherOptions, isThirdPartyAPI: true })
 }
